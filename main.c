@@ -9,11 +9,11 @@
 
 int main(int argc, char *argv[]) {
 	
-	int i,j;
+	int i,j, bFound;
 	int s[i][j];
 	int max = N*N;
 	
-	srand((unsigned)time(NULL));
+	srand((unsigned)time(NULL)); //시간이용하여 난수 
 	
 	for(i=0;i<N;i++)
 	{
@@ -22,6 +22,30 @@ int main(int argc, char *argv[]) {
 			s[i][j] = 1+rand()%max;
 		}
 	}
+	
+	 for ( i = 0; i < 10; ++i )
+
+       {
+			while ( 1 )
+
+    	{// 난수를하나생성
+		srand[i][j] = rand() % max + 1;
+		bFound = 0;
+
+		for ( j = 0; j < i; ++j )
+		{
+			if ( srand[j] == srand[i] )
+			{
+				 bFound = 1;
+					break;
+			}
+        }
+			 if ( !bFound )
+			     break;
+		}
+}
+
+ 
 
 	for(i=0;i<N;i++)
 	{
@@ -29,7 +53,8 @@ int main(int argc, char *argv[]) {
 		{
 			printf(" %d ", s[i][j]);
 		}
-		printf("\n");
+		printf("\n"); // 빙고판 생성 
 	}
 	return 0;
+
 }
