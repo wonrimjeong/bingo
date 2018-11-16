@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[]) {
 	
-	int i,j, bFound;
+	int i, j, bFound;
 	int s[i][j];
 	int max = N*N;
 	
@@ -22,30 +22,33 @@ int main(int argc, char *argv[]) {
 			s[i][j] = 1+rand()%max;
 		}
 	}
-	
-	 for ( i = 0; i < 10; ++i )
 
-       {
-			while ( 1 )
-
-    	{// 난수를하나생성
-		srand[i][j] = rand() % max + 1;
-		bFound = 0;
-
-		for ( j = 0; j < i; ++j )
+	for(i=0;i<N;i++)
+	{
+		for(j=0;j<N;j++)
 		{
-			if ( srand[j] == srand[i] )
+			while(1)
 			{
-				 bFound = 1;
-					break;
+				s[i][j] = 1+rand()%max;
+				bFound = 0;	
+				
+				for(i=0;i<N;i++)
+				{
+					for(j=1;j<N;j++)
+					{
+						if (s[i][j] == s[i-1][j-1])
+						{
+							bFound=1;
+							break;
+						}
+					}
+				}
+				if(!bFound)
+				break;
 			}
-        }
-			 if ( !bFound )
-			     break;
 		}
-}
+	}
 
- 
 
 	for(i=0;i<N;i++)
 	{
