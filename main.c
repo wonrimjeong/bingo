@@ -87,13 +87,37 @@ void print_bingo(int(*p)[N])
       printf("\n");
    }
 }
-int get_number_byMe()
+int get_number_byMe(int(*p)[N])
 {
-   int num;
+   int num, i, j, check=0, flag=0;
    printf("숫자를 선택하세요:");
-   scanf("%d", &num);
+   while (1)
+   {
+      scanf("%d", &num);
+      if (num<1 || num>N*N)
+      {
+         printf("범위 밖의 숫자입니다! 다시 입력해주세요:");
+         continue;
+      }
+      for (i = 0; i < N; i++)
+      {
+         for (j = 0; j < N; j++)
+         {
+            if (p[i][j] == num)
+               return num;
+            else
+               check++;
+         }
+      }
+      if (check == N * N)
+         printf("이미 선택되었던 숫자입니다! 다시 입력해주세요:");
+      check = 0;
+      
+   }
+
    return num;
 }
+
 int get_number_byCom(int(*p)[N])
 {
    int i, j, ran, check=0;
