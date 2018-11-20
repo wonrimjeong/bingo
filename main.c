@@ -3,49 +3,66 @@
 #include <time.h>
 
 #define N   5
-#define M   1
+#define M   2
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 void initiate_bingo(int(*p)[N]);
 void print_bingo(int(*p)[N]);
-int get_number_byMe();
+int get_number_byMe(int(*p)[N]);
 int get_number_byCom(int(*p)[N]);
 void process_bingo(int(*p)[N], int num);
 int count_bingo(int(*p)[N]);
+
 int main(int argc, char *argv[])
 {
 
-   int NUM, i, j;
-   int s[N][N], c[N][N];
+   int NUM, turn = 1;
+   int me[N][N], com[N][N];
 
    srand((unsigned)time(NULL));
 
-   initiate_bingo(s);
-   initiate_bingo(c);
-   print_bingo(s);
-   printf("\n");
-   print_bingo(c);
-   printf("\n");
+   initiate_bingo(me);
+   initiate_bingo(com);
 
    while (1)
    {
-      NUM = get_number_byMe();
-      process_bingo(s, NUM);
-      process_bingo(c, NUM);
-      print_bingo(s);
+      print_bingo(me);
       printf("\n");
-      print_bingo(c);
+      NUM = get_number_byMe(me);
+      process_bingo(me, NUM);
+      process_bingo(com, NUM);
+      if (count_bingo(me) >= M)
+      {
+         printf("승리자는 '나'이고, %d번째 turn에서 승부가 났습니다.", turn);
+         return 0;
+      }
+      if (count_bingo(com) >= M)
+      {
+         printf("승리자는 '상대방'이고, %d번째 turn에서 승부가 났습니다.", turn);
+         return 0;
+      }
+      NUM = get_number_byCom(com);
+      printf("상대방이 선택한 숫자는 %d입니다.\n\n", NUM);
+      process_bingo(me, NUM);
+      process_bingo(com, NUM);
+      if (count_bingo(me) >= M)
+      {
+         printf("승리자는 '나'이고, %d번째 turn에서 승부가 났습니다.", turn);
+         return 0;
+      }
+      if (count_bingo(com) >= M)
+      {
+         printf("승리자는 '상대방'이고, %d번째 turn에서 승부가 났습니다.", turn);
+         return 0;
+      }
+      turn++;
+	
+	}
 
-      
-
-   }
-
-
-   return 0;
 }
 void initiate_bingo(int(*p)[N])
 {
-   int i, j, k, ran, cnt=0, check=0;
+   int i, j, k, ran, cnt = 0, check = 0;
    int tmp[N*N] = { 0 };
 
    for (i = 0; i < N; i++)
@@ -60,7 +77,7 @@ void initiate_bingo(int(*p)[N])
                if (tmp[k] == ran)
                   break;
                else
-                  check++;
+                  check++;//check는 ran과 이미 들어가있는 숫자를 비교한 횟수 
             }
             if (check == cnt)
             {
@@ -71,8 +88,8 @@ void initiate_bingo(int(*p)[N])
                check = 0;
          }
          p[i][j] = ran;
-         tmp[cnt]= ran;
-         cnt++;
+         tmp[cnt] = ran;
+         cnt++;//cnt는 이미 들어가있는 숫자의 갯수 
       }
    }
 }
@@ -89,7 +106,7 @@ void print_bingo(int(*p)[N])
 }
 int get_number_byMe(int(*p)[N])
 {
-   int num, i, j, check=0, flag=0;
+   int num, i, j, check = 0;
    printf("숫자를 선택하세요:");
    while (1)
    {
@@ -106,21 +123,18 @@ int get_number_byMe(int(*p)[N])
             if (p[i][j] == num)
                return num;
             else
-               check++;
+               check++;//행렬에 있는 숫자와 내가 선택한 숫자가 같았던 횟수 
          }
       }
-      if (check == N * N)
+      if (check == N * N)//선택한 숫자가 행렬에 있는 숫자와 N*N개 만큼 중복되는지 확인 
          printf("이미 선택되었던 숫자입니다! 다시 입력해주세요:");
       check = 0;
-      
+
    }
-
-   return num;
 }
-
 int get_number_byCom(int(*p)[N])
 {
-   int i, j, ran, check=0;
+   int i, j, ran;
 
    while (1)
    {
@@ -131,17 +145,14 @@ int get_number_byCom(int(*p)[N])
          {
             if (p[i][j] == ran)
                break;
-            else
-               check++;
          }
          if (p[i][j] == ran)
             break;
       }
       if (p[i][j] == ran)
          return ran;
-      check = 0;
    }
-   
+
 }
 void process_bingo(int(*p)[N], int num)
 {
@@ -186,13 +197,14 @@ int count_bingo(int(*p)[N])
          binc++;
       cnt = 0;
    }
- for (i = 0; i < N; i++)//왼쪽->오른쪽으로 향하는 대각선이 모두 -1인지 확인해준다
+   for (i = 0; i < N; i++)//왼쪽->오른쪽으로 향하는 대각선이 모두 -1인지 확인해준다
    {
       if (p[i][i] == -1)
          cnt++;
    }
    if (cnt == N)
       binc++;
+      
    cnt = 0;
    for (i = 0; i < N; i++)//오른쪽->왼쪽으로 향하는 대각선이 모두 -1인지 확인해준다
    {
@@ -204,4 +216,3 @@ int count_bingo(int(*p)[N])
 
    return binc;
 }
-
