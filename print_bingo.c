@@ -11,8 +11,8 @@ void print_bingo(int(*p)[N])
 
    for (i = 0; i < N; i++)
    {
-      for (j = 0; j < N; j++)
-         printf("%3d", p[i][j]);
-      printf("\n");
+      	for (j = 0; j < N; j++)
+			printf("%3d", p[i][j]);
+      		printf("\n");
    }
 }

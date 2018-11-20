@@ -11,19 +11,19 @@ int get_number_byCom(int(*p)[N])
 
    while (1)
    {
-      ran = 1 + rand() % (N*N);
-      for (i = 0; i < N; i++)
-      {
-         for (j = 0; j < N; j++)
-         {
-            if (p[i][j] == ran)
-               break;
-         }
-         if (p[i][j] == ran)
-            break;
-      }
-      if (p[i][j] == ran)
-         return ran;
+      	ran = 1 + rand() % (N*N);
+      	for (i = 0; i < N; i++)
+      	{
+        	for (j = 0; j < N; j++)
+         	{
+            	if (p[i][j] == ran)
+            		break;
+         	}
+         	if (p[i][j] == ran)
+            	break;
+      	}
+      	if (p[i][j] == ran)
+        
+		return ran;
    }
-
 }
