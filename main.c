@@ -81,7 +81,7 @@ void initiate_bingo(int(*p)[N])
             ran = 1 + rand() % (N*N);
             for (k = 0; k < cnt; k++)
             {
-               	if (tmp[k] == ran)
+               	if (tmp[k] == ran) //1차원 배열의 수와 난수가 같은지 비교
                   break;
                	else
                   check++;
@@ -94,7 +94,7 @@ void initiate_bingo(int(*p)[N])
             else
                check = 0;
          }
-         p[i][j] = ran;
+         p[i][j] = ran; //난수가 1차원 배열의 수와 같지 않으면 2차원배열에 사용함.
          tmp[cnt] = ran;
          cnt++; 
       }
@@ -174,7 +174,7 @@ void process_bingo(int(*p)[N], int num)
    {
       	for (j = 0; j < N; j++)
       	{
-        	if (p[i][j] == num)
+        	if (p[i][j] == num) //num은 get_number_byMe에서 받은 수
             	break;
       	}
       	if (p[i][j] == num)
@@ -185,7 +185,7 @@ void process_bingo(int(*p)[N], int num)
 
 int count_bingo(int(*p)[N])
 {
-   int i, j, binc = 0, cnt = 0;//binc는 bingo count 
+   int i, j, binc = 0, cnt = 0;//binc는 bingo count, 메인함수에서는 M 
 
    for (i = 0; i < N; i++)//한 행이 모두 -1인지 확인해준다
    {
