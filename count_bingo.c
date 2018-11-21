@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#define N   5
-#define M   1
+#include "count_bingo.h"
 
 int count_bingo(int(*p)[N])
 {

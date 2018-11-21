@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "get_number_byCom.h"
 
-#define N   5
-#define M   1
 
 int get_number_byCom(int(*p)[N])
 {

@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#define N   5
-#define M   1
+#include "initiate_bingo.h"
 
 void initiate_bingo(int(*p)[N])
 {

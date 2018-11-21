@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "initiate_bingo.h"
+#include "print_bingo.h"
+#include "get_number_byMe.h"
+#include "get_number_byCom.h"
+#include "process_bingo.h"
+#include "count_bingo.h"
 
-#define N   5
-#define M   2
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -65,7 +69,7 @@ int main(int argc, char *argv[])
 
 void initiate_bingo(int(*p)[N])
 {
-   int i, j, k, ran, cnt = 0, check = 0; //cnt는 이미 들어가있는 숫자의 갯수, check는 ran과 이미 들어가있는 숫자를 비교한 횟수
+   int i, j, k, ran, cnt = 0, check = 0; //check는 ran과 이미 들어가있는 숫자를 비교한 횟수, cnt는 이미 들어가있는 숫자의 갯수 
    int tmp[N*N] = { 0 };
 
    for (i = 0; i < N; i++)
@@ -77,7 +81,7 @@ void initiate_bingo(int(*p)[N])
             ran = 1 + rand() % (N*N);
             for (k = 0; k < cnt; k++)
             {
-               	if (tmp[k] == ran) //1차원 배열의 수와 난수가 같은지 비교 
+               	if (tmp[k] == ran)
                   break;
                	else
                   check++;
@@ -90,7 +94,7 @@ void initiate_bingo(int(*p)[N])
             else
                check = 0;
          }
-         p[i][j] = ran; //난수가 1차원 배열의 수와 같지 않으면 2차원배열에 사용함. 
+         p[i][j] = ran;
          tmp[cnt] = ran;
          cnt++; 
       }
@@ -105,7 +109,7 @@ void print_bingo(int(*p)[N])
    {
       	for (j = 0; j < N; j++)
 			printf("%3d", p[i][j]);
-      		printf("\n");
+      	printf("\n");
    }
 }
 
@@ -127,7 +131,7 @@ int get_number_byMe(int(*p)[N])
         	for (j = 0; j < N; j++)
         	{
             	if (p[i][j] == num)
-               		return num;
+               		return num; //Me에게 받은 숫자가 2차원행렬 빙고판에 있으면 메인함수로 반환해준다.  
             	else
                		check++;//행렬에 있는 숫자와 내가 선택한 숫자가 같았던 횟수 
         	}
@@ -156,7 +160,7 @@ int get_number_byCom(int(*p)[N])
          	if (p[i][j] == ran)
             	break;
       	}
-      	if (p[i][j] == ran)
+      	if (p[i][j] == ran) //난수로 발생시킨 수가 2차원행렬의 빙고판에 있는지 확인 
         
 		return ran;
    }
@@ -170,7 +174,7 @@ void process_bingo(int(*p)[N], int num)
    {
       	for (j = 0; j < N; j++)
       	{
-        	if (p[i][j] == num) //num은 get_number_byMe에서 받은 수 
+        	if (p[i][j] == num)
             	break;
       	}
       	if (p[i][j] == num)
@@ -181,7 +185,7 @@ void process_bingo(int(*p)[N], int num)
 
 int count_bingo(int(*p)[N])
 {
-   int i, j, binc = 0, cnt = 0;//binc는 bingo count, 메인함수에서는 M 
+   int i, j, binc = 0, cnt = 0;//binc는 bingo count 
 
    for (i = 0; i < N; i++)//한 행이 모두 -1인지 확인해준다
    {
